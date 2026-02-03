@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}{{ item.title }} — Learn French{% endblock %}
+
+{% block content %}
+<article class="grammar-detail">
+  <h1>{{ item.title }}</h1>
+  <p>{{ item.content }}</p>
+  {% if item.examples %}
+  <h4>Examples:</h4>
+  <ul>
+    {% for ex in item.examples.split(',') %}
+    <li>{{ ex.strip() }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</article>
+{% endblock %}

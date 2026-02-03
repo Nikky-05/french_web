@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Short Stories — Learn French{% endblock %}
+
+{% block content %}
+<section class="stories-section">
+  <div class="stories-header">
+    <h1>Short Stories</h1>
+    <p class="lead">Read short stories to practice French</p>
+  </div>
+
+  <div class="stories-grid">
+    {% for story in stories %}
+    <a href="{{ url_for('main.story_detail', story_id=story.id) }}" class="story-bubble">
+      <h3>{{ story.title }}</h3>
+    </a>
+    {% else %}
+    <p>No stories found. Add some to the database!</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

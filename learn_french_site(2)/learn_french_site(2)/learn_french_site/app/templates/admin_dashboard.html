@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard — Learn French{% endblock %}
+
+{% block content %}
+<section class="admin-dashboard">
+  <h1> Admin Dashboard</h1>
+  <p class="subtitle">Manage your French learning content with ease!</p>
+
+  <div class="admin-grid">
+    <a href="{{ url_for('add_vocab') }}" class="admin-card light-blue">
+      <h3> Vocabulary</h3>
+      <p>Add or edit French words and translations.</p>
+    </a>
+
+    <a href="{{ url_for('add_grammar') }}" class="admin-card light-pink">
+      <h3> Grammar</h3>
+      <p>Manage grammar lessons and examples.</p>
+    </a>
+
+    <a href="{{ url_for('add_story') }}" class="admin-card light-purple">
+      <h3> Short Stories</h3>
+      <p>Upload and edit short French stories.</p>
+    </a>
+
+    <a href="{{ url_for('add_quiz') }}" class="admin-card light-green">
+      <h3> Quizzes</h3>
+      <p>Create quizzes for practice.</p>
+    </a>
+  </div>
+</section>
+{% endblock %}

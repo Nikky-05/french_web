@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}{{ story.title }} — Short Story{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 800px; margin-top: 50px; padding-bottom: 100px;">
+    <h2 class="page-title">{{ story.title }}</h2>
+
+    <div class="vocab-container"
+        style="text-align: left; margin-top: 40px; line-height: 2; font-size: 1.2rem; padding: 40px;">
+        {{ story.content|safe }}
+    </div>
+
+    <div class="text-center" style="margin-top: 50px;">
+        <a href="{{ url_for('main.stories') }}" class="category-btn active"
+            style="display: inline-flex; padding: 15px 40px;">Back to Stories</a>
+    </div>
+</div>
+{% endblock %}

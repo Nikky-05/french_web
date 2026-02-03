@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}{{ quiz.title }} — Quiz{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 700px; margin-top: 50px;">
+    <h2 class="page-title">{{ quiz.title }}</h2>
+    <p class="lead">{{ quiz.description }}</p>
+
+    <div id="quiz-results" class="vocab-container"
+        style="display: none; margin-bottom: 30px; border-left: 5px solid var(--primary-blue);">
+        <h3 id="score-text"></h3>
+        <p>See below for the correct answers highlighted in <strong>green</strong>.</p>
+        <div class="text-center" style="margin-top: 20px;">
+            <a href="{{ url_for('main.quizzes') }}" class="category-btn active" style="display: inline-flex;">Back to
+                Quizzes</a>
+        </div>
+    </div>
+
+    <form id="quiz-form">
+        {% for q in questions %}
+        <div class="vocab-container quiz-q-box" id="q-box-{{ q.id }}" style="margin-bottom: 30px; text-align: left;"
+            data-answer="{{ q.answer }}">
+            <p style="font-weight: 700; font-size: 1.1rem; margin-bottom: 15px;">{{ loop.index }}. {{ q.question }}</p>
+            {% set options = q.options.split(',') %}
+            {% for option in options %}
+            <div class="quiz-option"
+                style="margin-bottom: 10px; padding: 10px; border-radius: 10px; transition: background 0.3s;">
+                <label style="cursor: pointer; display: flex; align-items: center; gap: 10px; margin: 0;">
+                    <input type="radio" name="q{{ q.id }}" value="{{ option }}" required>
+                    <span class="option-text">{{ option }}</span>
+                </label>
+            </div>
+            {% endfor %}
+            <div class="answer-feedback" style="display: none; margin-top: 10px; font-weight: 600;"></div>
+        </div>
+        {% endfor %}
+
+        <div id="submit-btn-wrap" class="text-center" style="margin-bottom: 100px;">
+            <button type="submit" class="category-btn active"
+                style="padding: 15px 40px; font-size: 1.2rem; display: inline-flex;">Finish Quiz</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('quiz-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        let score = 0;
+        const total = {{ questions| length
+    }};
+    const form = e.target;
+
+    document.querySelectorAll('.quiz-q-box').forEach(box => {
+        const correctAnswer = box.getAttribute('data-answer');
+        const selectedInput = box.querySelector('input:checked');
+        const selectedValue = selectedInput ? selectedInput.value : '';
+        const feedback = box.querySelector('.answer-feedback');
+
+        // Disable all inputs
+        box.querySelectorAll('input').forEach(input => input.disabled = true);
+
+        // Highlight options
+        box.querySelectorAll('.quiz-option').forEach(optionBox => {
+            const val = optionBox.querySelector('input').value;
+            if (val === correctAnswer) {
+                optionBox.style.backgroundColor = '#d1e7dd'; // Light green
+                optionBox.style.border = '1px solid #0f5132';
+            } else if (val === selectedValue && val !== correctAnswer) {
+                optionBox.style.backgroundColor = '#f8d7da'; // Light red
+                optionBox.style.border = '1px solid #842029';
+            }
+        });
+
+        if (selectedValue === correctAnswer) {
+            score++;
+            feedback.innerHTML = "✅ Correct!";
+            feedback.style.color = "#0f5132";
+        } else {
+            feedback.innerHTML = `❌ Incorrect. Correct answer: <strong>${correctAnswer}</strong>`;
+            feedback.style.color = "#842029";
+        }
+        feedback.style.display = "block";
+    });
+
+    // Show results
+    document.getElementById('score-text').innerText = `You scored ${score} out of ${total}!`;
+    document.getElementById('quiz-results').style.display = 'block';
+    document.getElementById('submit-btn-wrap').style.display = 'none';
+
+    // Scroll to results
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+</script>
+{% endblock %}

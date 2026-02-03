@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Quizzes — Learn French{% endblock %}
+
+{% block content %}
+<section class="quiz-section container">
+  <h2 class="page-title">Quizzes</h2>
+  <p class="lead">Test your French skills with fun, colorful quizzes!</p>
+
+  <div class="quiz-grid">
+    {% if quizzes %}
+    {% for quiz in quizzes %}
+    <a href="{{ url_for('main.quiz_detail', quiz_id=quiz.id) }}"
+      class="quiz-card {{ loop.cycle('quiz-pink', 'quiz-purple', 'quiz-blue') }}">
+      <h3>Quiz {{ loop.index }}</h3>
+      <p>{{ 'French Grammar Basics' if loop.index == 1 else ('Everyday French' if loop.index == 2 else quiz.title) }}
+      </p>
+    </a>
+    {% endfor %}
+    {% else %}
+    <p class="text-center">No quizzes found. Add some to the database!</p>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Edit vocabulary</h2>
+<form method="post">
+  <label>Category: <input name="category" value="{{ v.category }}"></label><br>
+  <label>French: <input name="french" value="{{ v.french }}"></label><br>
+  <label>English: <input name="english" value="{{ v.english }}"></label><br>
+  <label>Pronunciation: <input name="pronunciation" value="{{ v.pronunciation }}"></label><br>
+  <button type="submit">Update</button>
+</form>
+{% endblock %}

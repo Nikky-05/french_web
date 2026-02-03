@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Learn French the Fun Way!{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <!-- French Ribbon (Top Left Corner) -->
+  <!-- <div class="ribbon">
+    <img src="{{ url_for('static', filename='images/french_ribbon.png') }}" alt="French Ribbon">
+  </div> -->
+
+  <!-- Main Headline -->
+  <section class="hero-section">
+    <div class="container text-center">
+      <h1 class="hero-title">Learn French <span class="highlight">the Fun Way!</span></h1>
+      <p class="hero-subtitle">Simple lessons, interesting short stories, and interactive quizzes</p>
+
+      <div class="home-grid">
+        <a href="{{ url_for('main.vocabulary') }}" class="home-card card-blue">
+          <div class="card-title">Vocabulary</div>
+          <div class="card-desc">Explore words</div>
+        </a>
+        <a href="{{ url_for('main.grammar') }}" class="home-card card-red">
+          <div class="card-title">Grammar</div>
+          <div class="card-desc">Practice grammar</div>
+        </a>
+        <a href="{{ url_for('main.stories') }}" class="home-card card-purple">
+          <div class="card-title">Short Stories</div>
+          <div class="card-desc">Read Now</div>
+        </a>
+        <a href="{{ url_for('main.quizzes') }}" class="home-card card-green">
+          <div class="card-title">Quizzes</div>
+          <div class="card-desc">Test yourself!</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Eiffel Tower Image (Right Side) -->
+  <!-- <div class="eiffel">
+    <img src="{{ url_for('static', filename='images/tower.png') }}" alt="Eiffel Tower">
+  </div> -->
+</section>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Add New Vocabulary{% endblock %}
+
+{% block content %}
+<section class="admin-form">
+  <h1> Add New Vocabulary Word</h1>
+  <p class="subtitle">Fill in the details below to add a new French word to the database.</p>
+
+  <form method="POST" class="form-card">
+    <div class="form-group">
+      <label>Category</label>
+      <input type="text" name="category" placeholder="e.g. Colors, Food, Animals" required>
+    </div>
+
+    <div class="form-group">
+      <label>French Word</label>
+      <input type="text" name="french" placeholder="e.g. pomme" required>
+    </div>
+
+    <div class="form-group">
+      <label>English Translation</label>
+      <input type="text" name="english" placeholder="e.g. apple" required>
+    </div>
+
+    <div class="form-group">
+      <label>Pronunciation (optional)</label>
+      <input type="text" name="pronunciation" placeholder="e.g. pɔm">
+    </div>
+
+    <button type="submit" class="submit-btn">➕ Add Word</button>
+  </form>
+
+  <div class="back-link">
+    <a href="{{ url_for('main.admin_dashboard') }}">← Back to Dashboard</a>
+  </div>
+</section>
+{% endblock %}
